@@ -1,8 +1,8 @@
 import streamlit as st
 import openai
 
-# Set up OpenAI API key (ensure you have set up your OpenAI API key)
-api_key = "sk-proj-P8f4FiSWVBJ1p787qJacT3BlbkFJmV0QcY73lt53ICD01aw2"
+# Get the OpenAI API key from Streamlit secrets
+api_key = st.secrets["OPENAI_API_KEY"]
 
 # Create a simple Streamlit app
 st.title("Name Extractor using OpenAI GPT")
@@ -23,7 +23,7 @@ if st.button("Extract Names"):
         response = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt,
-            max_tokens=50  # Adjust max_tokens according to your needs
+            max_tokens=50
         )
 
         # Extract the output from the response
@@ -31,6 +31,6 @@ if st.button("Extract Names"):
 
         # Display the extracted names
         st.write("The names present in the text you provided are:")
-        st.write(extracted_names.strip())  # Use strip() to remove extra whitespace
+        st.write(extracted_names.strip())  # Remove leading/trailing whitespace
     else:
         st.warning("Please enter some text to extract names.")
